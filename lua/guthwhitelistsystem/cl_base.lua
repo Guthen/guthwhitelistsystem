@@ -13,21 +13,23 @@ local function loadFolder( folder )
         elseif string.StartWith( v, "sv_" ) then
             continue
         else
-            print( ("\vFailed to load : %s"):format( v ) )
+            print( ("\tFailed to load : %s"):format( v ) )
             continue
         end
 
         i = i + 1
-        print( ("\vLoaded : %s"):format( v ) )
+        print( ("\tLoaded : %s"):format( v ) )
     end
 
-    print( ("\vLoaded %d %s."):format( i, folder ) )
+    print( ("\tLoaded %d %s."):format( i, folder ) )
 end
 
 function guthwhitelistsystem.load()
     print( "\n--> [guthwhitelistsystem] <--" )
 
     loadFolder( "modules" )
+
+    include( "sh_config.lua" )
 
     print( "---------> [loaded] <--------" )
 end
@@ -49,3 +51,15 @@ function guthwhitelistsystem.chat( msg )
     if not msg or not isstring( msg ) then return guthwhitelistsystem.print( "'guthwhitelistsystem.chat' should have a string variable." ) end
     chat.AddText( Color( 215, 145, 45 ), "[guthwhitelistsystem] - ", Color( 255, 255, 255 ), msg )
 end
+
+--  > Receive some data
+
+net.Receive( "guthwhitelistsystem:SendData", function()
+    local wl = net.ReadTable()
+    local jobs = net.ReadTable()
+    if not wl or not istable( wl ) then return end
+    if not jobs or not istable( jobs ) then return end
+
+    guthwhitelistsystem.wl = wl
+    guthwhitelistsystem.wlJob = jobs
+end )

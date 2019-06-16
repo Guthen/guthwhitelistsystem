@@ -18,6 +18,11 @@ end
 
 local w, h = 700, 500
 function guthwhitelistsystem.panel()
+    if not LocalPlayer():IsAdmin() or not LocalPlayer():IsSuperAdmin() then
+        guthwhitelistsystem.chat( "You must have admin privileges !" )
+        return
+    end
+
     --  > Load the panels
     guthwhitelistsystem.loadPanels()
 
@@ -40,14 +45,15 @@ function guthwhitelistsystem.panel()
 
     local sheet = vgui.Create( "DPropertySheet", frame )
         sheet:Dock( FILL )
+        sheet:InvalidateLayout( true )
         for _, v in ipairs( guthwhitelistsystem.panels ) do
-            local pnl = v.func( sheet )
+            local pnl = v.func( sheet, w, h )
             if not pnl or not ispanel( pnl ) then continue end
 
             sheet:AddSheet( v.name, pnl, v.icon )
         end
-        function sheet:OnActiveTabChanged( _, new )
-            self:InvalidateChildren( true )
+        function sheet:OnActiveTabChanged()
+            surface.PlaySound( "UI/buttonrollover.wav" )
         end
 
     local close = vgui.Create( "DImageButton", frame )
@@ -69,7 +75,7 @@ concommand.Add( "guthwhitelistsystem_panel", guthwhitelistsystem.panel )
 --  > #time: number, the time before it get destroyed
 --  > #color: color, the background color
 function guthwhitelistsystem.panelNotif( pnl, icon, msg, time, color )
-    if not ispanel( pnl ) or not pnl:IsValid() then print(pnl) return false end
+    if not ispanel( pnl ) or not pnl:IsValid() then return false end
 
     local icon = Material( icon or "icon16/bricks.png" )
 
@@ -79,20 +85,17 @@ function guthwhitelistsystem.panelNotif( pnl, icon, msg, time, color )
         pnl:SizeTo( -1, 30, 1 )
         function pnl:Paint( w, h )
             draw.RoundedBox( 0, 0, 0, w, h, color or Color( 215, 45, 45 ) )
-            draw.SimpleText( msg or "Enter a message here.", "DermaDefaultBold", 25, 14, Color( 255, 255, 255 ), _, TEXT_ALIGN_CENTER )
+            draw.SimpleText( msg or "Enter a message here.", "DermaDefaultBold", 25, h-16, Color( 255, 255, 255 ), _, TEXT_ALIGN_CENTER )
 
             surface.SetDrawColor( Color( 255, 255, 255 ) )
             surface.SetMaterial( icon )
-            surface.DrawTexturedRect( 5, 7, 16, 16 )
+            surface.DrawTexturedRect( 5, h-23, 16, 16 )
         end
 
-        print( "1" )
     if time == -1 then return end
-    print( "2" )
     timer.Simple( time or 3, function()
-        print( "3" )
+        if not pnl or not pnl:IsValid() or not ispanel( pnl ) then return end
         pnl:SizeTo( -1, 0, 1, 0, -1, function()
-            print( "4" )
             pnl:Remove()
         end )
     end )

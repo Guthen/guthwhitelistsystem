@@ -17,15 +17,15 @@ local function loadFolder( folder )
             AddCSLuaFile( ("%s/%s"):format( _path, v ) )
             print( ("%s/%s"):format( _path, v ) )
         else
-            print( ("\vFailed to load : %s"):format( v ) )
+            print( ("\tFailed to load : %s"):format( v ) )
             continue
         end
 
         i = i + 1
-        print( ("\vLoaded : %s"):format( v ) )
+        print( ("\tLoaded : %s"):format( v ) )
     end
 
-    print( ("\vLoaded %d %s."):format( i, folder ) )
+    print( ("\tLoaded %d %s."):format( i, folder ) )
 end
 
 function guthwhitelistsystem.load()
@@ -34,6 +34,15 @@ function guthwhitelistsystem.load()
     loadFolder( "modules" )
     loadFolder( "panels" )
 
+    include( "sh_config.lua" )
+
     print( "---------> [loaded] <--------" )
 end
 guthwhitelistsystem.load()
+
+--  > Make some usefull functions
+
+function guthwhitelistsystem.print( msg )
+    if not msg or not isstring( msg ) then return end
+    print( ("[guthwhitelistsystem] - %s"):format( msg )  )
+end
