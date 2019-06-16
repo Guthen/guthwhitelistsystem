@@ -37,6 +37,20 @@ Player:WLIsAdmin()
 Player:WLIsVIP()
 ```
 
+#### Others functions :
+```lua
+--  > : Set the whitelist of a specified job
+--  > #jobId (number): the index of the job
+--  > #bool (boolean): 'true' to add the whitelist and 'false' to remove it
+--  > #vip (optional) (boolean): 'true' to add the whitelist to VIP only and 'false' to remove it
+--  > NOTE: Set the whitelist on CLIENT and SERVER because the changes are not networked
+guthwhitelistsystem:WLSetJobWhitelist( jobId, bool, vip )
+
+--  > : Return the whitelist information of a job, a table is returned
+--  > #jobId (number): the index of the job
+guthwhitelistsystem:WLGetJobWhitelist( jobId )
+```
+
 ## How can I contact you ?
 
 Join my Discord : https://discord.gg/FZ9WVVe
