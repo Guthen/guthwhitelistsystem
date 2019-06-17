@@ -8,7 +8,7 @@ if SERVER then
         local job = net.ReadUInt( 7 )
         local bool = net.ReadBool()
         local vip = net.ReadBool()
-        guthwhitelistsystem:WLSetJobWhitelist( job, not bool == nil and bool or true, vip or false )
+        guthwhitelistsystem:WLSetJobWhitelist( job, bool or false, vip or false )
     end )
 
 end
@@ -123,7 +123,7 @@ guthwhitelistsystem.setPanel( "Jobs", "icon16/briefcase.png", 2, function( sheet
                     local id = tonumber( string.match( line:GetValue( 1 ), "(%d+)" ) )
                     --print( "ID:" .. tostring( id ), line:GetValue( 1 ) )
                     if not id then return end
-                    if not ply:WLIsAdmin() then 
+                    if not ply:WLIsAdmin() then
                         guthwhitelistsystem.panelNotif( pnlJ, "icon16/shield_delete.png", "You are not an admin !", 3, Color( 214, 45, 45 ) )
                         return
                     end

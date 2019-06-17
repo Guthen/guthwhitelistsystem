@@ -25,6 +25,8 @@ hook.Add( "ShutDown", "guthwhitelistsystem:Hook", function()
 end )
 
 hook.Add( "PlayerInitialSpawn", "guthwhitelistsystem:Hook", function( ply )
+    if not ply:WLIsAdmin() then return end
+
     net.Start( "guthwhitelistsystem:SendData" )
         net.WriteTable( guthwhitelistsystem.wl )
         net.WriteTable( guthwhitelistsystem.wlJob )

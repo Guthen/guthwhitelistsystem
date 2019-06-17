@@ -1,7 +1,23 @@
 
+local Player = FindMetaTable( "Player" )
+
+--  > Make some meta
+
+function Player:WLSendData()
+    if not self:IsValid() then return end
+
+    net.Start( "guthwhitelistsystem:SendData" )
+        net.WriteTable( guthwhitelistsystem.wl )
+        net.WriteTable( guthwhitelistsystem.wlJob )
+    net.Send( self )
+end
+
+--  > --------------- <  --
+
 local path = "guthwhitelistsystem"
 local wlFile = "/whitelist.txt"
 local jobFile = "/job.txt"
+
 --  > Make some functions
 
 function guthwhitelistsystem:WLSave()

@@ -57,9 +57,13 @@ end
 net.Receive( "guthwhitelistsystem:SendData", function()
     local wl = net.ReadTable()
     local jobs = net.ReadTable()
-    if not wl or not istable( wl ) then return end
-    if not jobs or not istable( jobs ) then return end
 
-    guthwhitelistsystem.wl = wl
-    guthwhitelistsystem.wlJob = jobs
+    if wl and istable( wl ) then
+        guthwhitelistsystem.wl = wl
+    end
+    if jobs and istable( jobs ) then
+        guthwhitelistsystem.wlJob = jobs
+    end
+
+    guthwhitelistsystem.print( "Receive some data !" )
 end )

@@ -27,6 +27,13 @@ function Player:WLSetJobWhitelist( job, bool, by )
         guthwhitelistsystem.wl[self:SteamID()][job] = nil
     end
 
+    if SERVER then
+        for _, v in pairs( player.GetAll() ) do
+            if not v:WLIsAdmin() then continue end
+            v:WLSendData()
+        end
+    end
+
     guthwhitelistsystem.print( ("Set job whitelist (%d : %s) to %s to %s by %s !"):format( job, team.GetName( job ), self:GetName(), tostring( bool ), by ) )
 end
 
@@ -67,6 +74,13 @@ function guthwhitelistsystem:WLSetJobWhitelist( job, bool, vip )
         for _, v in pairs( player.GetAll() ) do
             local wl = guthwhitelistsystem.wl[v:SteamID()]
             if wl and wl[job] then wl[job] = nil end
+        end
+    end
+
+    if SERVER then
+        for _, v in pairs( player.GetAll() ) do
+            if not v:WLIsAdmin() then continue end
+            v:WLSendData()
         end
     end
 
