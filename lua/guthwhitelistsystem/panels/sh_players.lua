@@ -22,6 +22,7 @@ guthwhitelistsystem.setPanel( "Players", "icon16/user_gray.png", 1, function( sh
     local pnlP = vgui.Create( "DPanel", sheet ) -- panel players
 
     local trg = LocalPlayer()
+    local ply = trg
 
     local listP = vgui.Create( "DListView", pnlP )
     local listJ = vgui.Create( "DListView", pnlP )
