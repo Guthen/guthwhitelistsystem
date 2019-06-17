@@ -8,13 +8,10 @@ local function loadFolder( folder )
 
     local i = 0
     for _, v in pairs( file.Find( ("%s/*.lua"):format( _path ), "LUA" ) ) do
-        if string.StartWith( v, "cl_" ) or string.StartWith( v, "sh_" ) then
-            include( ("%s/%s"):format( _path, v ) )
-        elseif string.StartWith( v, "sv_" ) then
+        if string.StartWith( v, "sv_" ) then
             continue
         else
-            print( ("\tFailed to load : %s"):format( v ) )
-            continue
+            include( ("%s/%s"):format( _path, v ) )
         end
 
         i = i + 1
@@ -26,10 +23,12 @@ end
 
 function guthwhitelistsystem.load()
     print( "\n--> [guthwhitelistsystem] <--" )
+    
+    include( "sh_config.lua" )
 
     loadFolder( "modules" )
+    loadFolder( "languages" )
 
-    include( "sh_config.lua" )
 
     print( "---------> [loaded] <--------" )
 end
@@ -50,6 +49,11 @@ end
 function guthwhitelistsystem.chat( msg )
     if not msg or not isstring( msg ) then return guthwhitelistsystem.print( "'guthwhitelistsystem.chat' should have a string variable." ) end
     chat.AddText( Color( 215, 145, 45 ), "[guthwhitelistsystem] - ", Color( 255, 255, 255 ), msg )
+end
+
+function guthwhitelistsystem.getLan( id )
+    local l = guthwhitelistsystem.languages[guthwhitelistsystem.Language]
+    return l and l[id]
 end
 
 --  > Receive some data

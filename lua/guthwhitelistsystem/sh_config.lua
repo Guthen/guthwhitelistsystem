@@ -21,10 +21,7 @@ guthwhitelistsystem.AdminRanks        =
                         ["admin"] = true,
                     }
 
---  < Notification showed when your not a VIP
-guthwhitelistsystem.NotifNotVIP       =  "You can't get access to this VIP job !"
-
---  < Notification showed when your not whitelisted
-guthwhitelistsystem.NotifNotWhitelist =  "You are not whitelisted !"
+--  < Language: choice between 'en' and 'fr'
+guthwhitelistsystem.Language          =  "fr"
 
 print( "\tLoaded : sh_config.lua." )

@@ -19,14 +19,14 @@ end
 local w, h = 700, 500
 function guthwhitelistsystem.panel()
     if not LocalPlayer():IsAdmin() or not LocalPlayer():IsSuperAdmin() then
-        guthwhitelistsystem.chat( "You must have admin privileges !" )
+        guthwhitelistsystem.chat( guthwhitelistsystem.getLan( "ChatNotAdmin" ) )
         return
     end
 
     --  > Load the panels
     guthwhitelistsystem.loadPanels()
 
-    guthwhitelistsystem.chat( "Panel opened !" )
+    guthwhitelistsystem.chat( guthwhitelistsystem.getLan( "ChatOpen" ) )
 
     local frame = vgui.Create( "DFrame" )
         frame:SetSize( w, h )
@@ -61,7 +61,7 @@ function guthwhitelistsystem.panel()
         close:SetSize( 16, 16 )
         close:SetImage( "icon16/cancel.png" )
         function close:DoClick()
-            guthwhitelistsystem.chat( "Panel closed !" )
+            guthwhitelistsystem.chat( guthwhitelistsystem.getLan( "ChatClose" ) )
             frame:SizeTo( -1, 0, 1, 0, -5, function() -- animation
                 frame:Remove()
             end )

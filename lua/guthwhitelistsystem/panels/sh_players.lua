@@ -17,7 +17,7 @@ end
 
 if not CLIENT then return end
 
-guthwhitelistsystem.setPanel( "Players", "icon16/user_gray.png", 1, function( sheet, w, h )
+guthwhitelistsystem.setPanel( guthwhitelistsystem.getLan( "Players" ), "icon16/user_gray.png", 1, function( sheet, w, h )
 
     local pnlP = vgui.Create( "DPanel", sheet ) -- panel players
 
@@ -33,8 +33,8 @@ guthwhitelistsystem.setPanel( "Players", "icon16/user_gray.png", 1, function( sh
         listP:DockMargin( 10, 10, 0, 10 )
         listP:SetWidth( 250 )
         listP:SetMultiSelect( false )
-        listP:AddColumn( "Players" )
-        listP:AddColumn( "SteamID" )
+        listP:AddColumn( guthwhitelistsystem.getLan( "Players" ) )
+        listP:AddColumn( guthwhitelistsystem.getLan( "SteamID" ) )
         for _, v in pairs( player.GetAll() ) do
             listP:AddLine( v:Name(), v:SteamID() )
         end
@@ -47,21 +47,21 @@ guthwhitelistsystem.setPanel( "Players", "icon16/user_gray.png", 1, function( sh
             surface.PlaySound( "UI/buttonclickrelease.wav" )
             local m = DermaMenu( pnlP )
 
-            local n = m:AddOption( "Copy Name", function()
+            local n = m:AddOption( guthwhitelistsystem.getLan( "Copy Name" ), function()
                 SetClipboardText( line:GetColumnText( 1 ) )
-                guthwhitelistsystem.panelNotif( pnlP, "icon16/page_copy.png", ("You copied name of %s !"):format( trg:GetName() ), 3, Color( 210, 210, 210 ) )
+                guthwhitelistsystem.panelNotif( pnlP, "icon16/page_copy.png", (guthwhitelistsystem.getLan( "CopyName" )):format( trg:GetName() ), 3, Color( 210, 210, 210 ) )
             end )
             n:SetIcon( "icon16/page_copy.png" )
 
-            local sid = m:AddOption( "Copy SteamID", function()
+            local sid = m:AddOption( guthwhitelistsystem.getLan( "Copy SteamID" ), function()
                 SetClipboardText( line:GetColumnText( 2 ) )
-                guthwhitelistsystem.panelNotif( pnlP, "icon16/page_copy.png", ("You copied SteamID of %s !"):format( trg:GetName() ), 3, Color( 210, 210, 210 ) )
+                guthwhitelistsystem.panelNotif( pnlP, "icon16/page_copy.png", (guthwhitelistsystem.getLan( "CopySteamID" )):format( trg:GetName() ), 3, Color( 210, 210, 210 ) )
             end )
             sid:SetIcon( "icon16/page_copy.png" )
 
-            local nsid = m:AddOption( "Copy Name + SteamID", function()
+            local nsid = m:AddOption( guthwhitelistsystem.getLan( "Copy NameSteamID" ), function()
                 SetClipboardText( ("%s : %s"):format( line:GetColumnText( 1 ), line:GetColumnText( 2 ) ) )
-                guthwhitelistsystem.panelNotif( pnlP, "icon16/page_copy.png", ("You copied name and SteamID of %s !"):format( trg:GetName() ), 3, Color( 210, 210, 210 ) )
+                guthwhitelistsystem.panelNotif( pnlP, "icon16/page_copy.png", (guthwhitelistsystem.getLan( "CopyNameSteamID" )):format( trg:GetName() ), 3, Color( 210, 210, 210 ) )
             end )
             nsid:SetIcon( "icon16/page_copy.png" )
 
@@ -72,10 +72,10 @@ guthwhitelistsystem.setPanel( "Players", "icon16/user_gray.png", 1, function( sh
         listJ:Dock( FILL )
         listJ:DockMargin( 10, 10, 10, 10 )
         listJ:SetMultiSelect( false )
-        listJ:AddColumn( "Job" )
-        listJ:AddColumn( "Date" )
-        listJ:AddColumn( "Time" )
-        listJ:AddColumn( "By" )
+        listJ:AddColumn( guthwhitelistsystem.getLan( "Jobs" ) )
+        listJ:AddColumn( guthwhitelistsystem.getLan( "Date" ) )
+        listJ:AddColumn( guthwhitelistsystem.getLan( "Time" ) )
+        listJ:AddColumn( guthwhitelistsystem.getLan( "By" ) )
         function listJ:Actualize()
             listJ:Clear()
 
@@ -90,12 +90,12 @@ guthwhitelistsystem.setPanel( "Players", "icon16/user_gray.png", 1, function( sh
             surface.PlaySound( "UI/buttonclickrelease.wav" )
             local m = DermaMenu( pnlP )
 
-            local remove = m:AddOption( "Remove whitelist", function()
+            local remove = m:AddOption( guthwhitelistsystem.getLan( "RemoveWhitelist" ) , function()
                 local id = tonumber( string.match( line:GetValue( 1 ), "(%d+)" ) )
                 --print( "ID:" .. tostring( id ), line:GetValue( 1 ) )
                 if not id then return end
                 if not ply:WLIsAdmin() then
-                    guthwhitelistsystem.panelNotif( pnlP, "icon16/shield_delete.png", "You are not an admin !", 3, Color( 214, 45, 45 ) )
+                    guthwhitelistsystem.panelNotif( pnlP, "icon16/shield_delete.png", guthwhitelistsystem.getLan( "PanelNotAdmin" ) , 3, Color( 214, 45, 45 ) )
                     return
                 end
 
@@ -107,8 +107,8 @@ guthwhitelistsystem.setPanel( "Players", "icon16/user_gray.png", 1, function( sh
 
                 trg:WLSetJobWhitelist( id, false, LocalPlayer() )
 
-                guthwhitelistsystem.chat( ("You removed whitelist of %s to %s (%s) !"):format( team.GetName( id ), trg:GetName(), trg:SteamID() ) )
-                guthwhitelistsystem.panelNotif( pnlP, "icon16/delete.png", ("%s has been unwhitelisted from %s !"):format( trg:GetName(), team.GetName( id ) ), 3, Color( 214, 45, 45 ) )
+                guthwhitelistsystem.chat( (guthwhitelistsystem.getLan( "ChatRemoveWhitelist" )):format( team.GetName( id ), trg:GetName(), trg:SteamID() ) )
+                guthwhitelistsystem.panelNotif( pnlP, "icon16/delete.png", (guthwhitelistsystem.getLan( "PanelUnwhitelisted" )):format( trg:GetName(), team.GetName( id ) ), 3, Color( 214, 45, 45 ) )
 
                 self:Actualize()
             end )
@@ -133,7 +133,7 @@ guthwhitelistsystem.setPanel( "Players", "icon16/user_gray.png", 1, function( sh
                 i = i + 1
             end
             if i == 0 then
-                jobChoice:AddChoice( "Any", -1, true, "icon16/exclamation.png" )
+                jobChoice:AddChoice( guthwhitelistsystem.getLan( "Any" ), -1, true, "icon16/exclamation.png" )
             end
         end
         function jobChoice:OnSelect()
@@ -149,14 +149,14 @@ guthwhitelistsystem.setPanel( "Players", "icon16/user_gray.png", 1, function( sh
             surface.PlaySound( "UI/buttonclickrelease.wav" )
 
             if not ply:WLIsAdmin() then
-                guthwhitelistsystem.panelNotif( pnlP, "icon16/shield_delete.png", "You are not an admin !", 3, Color( 214, 45, 45 ) )
+                guthwhitelistsystem.panelNotif( pnlP, "icon16/shield_delete.png", guthwhitelistsystem.getLan( "PanelNotAdmin" ), 3, Color( 214, 45, 45 ) )
                 return
             end
 
             local _, id = jobChoice:GetSelected()
-            if not id then return guthwhitelistsystem.panelNotif( pnlP, "icon16/exclamation.png", "You must select a correct job !", 3, Color( 214, 45, 45 ) ) end
-            if not guthwhitelistsystem:WLGetJobWhitelist( id ).active then return guthwhitelistsystem.panelNotif( pnlP, "icon16/exclamation.png", "This job is not whitelisted !", 3, Color( 214, 45, 45 ) ) end
-            if trg:WLGetJobWhitelist( id ) then return guthwhitelistsystem.panelNotif( pnlP, "icon16/exclamation.png", ("%s has already been whitelisted %s !"):format( trg:GetName(), team.GetName( id ) ), 3, Color( 214, 45, 45 ) ) end
+            if not id then return guthwhitelistsystem.panelNotif( pnlP, "icon16/exclamation.png", guthwhitelistsystem.getLan( "PanelUncorrectJob" ), 3, Color( 214, 45, 45 ) ) end
+            if not guthwhitelistsystem:WLGetJobWhitelist( id ).active then return guthwhitelistsystem.panelNotif( pnlP, "icon16/exclamation.png", guthwhitelistsystem.getLan( "PanelNotWhitelisted" ), 3, Color( 214, 45, 45 ) ) end
+            if trg:WLGetJobWhitelist( id ) then return guthwhitelistsystem.panelNotif( pnlP, "icon16/exclamation.png", (guthwhitelistsystem.getLan( "PanelAlreadyWhitelist" )):format( trg:GetName(), team.GetName( id ) ), 3, Color( 214, 45, 45 ) ) end
 
             net.Start( "guthwhitelistsystem:SetWhitelist" )
                 net.WriteEntity( trg )
@@ -166,8 +166,8 @@ guthwhitelistsystem.setPanel( "Players", "icon16/user_gray.png", 1, function( sh
 
             trg:WLSetJobWhitelist( id, true, LocalPlayer() )
 
-            guthwhitelistsystem.chat( ("You added whitelist of %s to %s (%s) !"):format( team.GetName( id ), trg:GetName(), trg:SteamID() ) )
-            guthwhitelistsystem.panelNotif( pnlP, "icon16/accept.png", ("%s has been whitelisted to %s !"):format( trg:GetName(), team.GetName( id ) ), 3, Color( 45, 174, 45 ) )
+            guthwhitelistsystem.chat( (guthwhitelistsystem.getLan( "ChatAddWhitelist" )):format( team.GetName( id ), trg:GetName(), trg:SteamID() ) )
+            guthwhitelistsystem.panelNotif( pnlP, "icon16/accept.png", (guthwhitelistsystem.getLan( "PanelWhitelisted" )):format( trg:GetName(), team.GetName( id ) ), 3, Color( 45, 174, 45 ) )
 
             listJ:Actualize()
         end
@@ -180,14 +180,14 @@ guthwhitelistsystem.setPanel( "Players", "icon16/user_gray.png", 1, function( sh
             surface.PlaySound( "UI/buttonclickrelease.wav" )
 
             jobChoice:Actualize()
-            guthwhitelistsystem.panelNotif( pnlP, "icon16/arrow_refresh.png", "You refreshed the job whitelist choices !", 3, Color( 45, 174, 45 ) )
+            guthwhitelistsystem.panelNotif( pnlP, "icon16/arrow_refresh.png", guthwhitelistsystem.getLan( "PanelRefreshJob" ), 3, Color( 45, 174, 45 ) )
         end
 
     -- error
     if not DarkRP then
-        guthwhitelistsystem.panelNotif( pnlP, "icon16/exclamation.png", "This panel can only work in the DarkRP gamemode !", -1, Color( 214, 45, 45 ) )
+        guthwhitelistsystem.panelNotif( pnlP, "icon16/exclamation.png", guthwhitelistsystem.getLan( "PanelDarkRP" ), -1, Color( 214, 45, 45 ) )
     else -- info
-        guthwhitelistsystem.panelNotif( pnlP, "icon16/information.png", "Welcome to the Guthen Whitelist Panel !", 3, Color( 45, 45, 214 ) )
+        guthwhitelistsystem.panelNotif( pnlP, "icon16/information.png", guthwhitelistsystem.getLan( "PanelWelcome" ), 3, Color( 45, 45, 214 ) )
     end
 
     return pnlP
