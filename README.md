@@ -1,6 +1,8 @@
 # guthwhitelistsystem
 Garry's Mod job whitelist system for DarkRP.
 
+Demonstration here : https://youtu.be/8DiL5qEkvcw
+
 ## How to install it ?
 
 You just need to install it in your addons folder and to configure it in `lua/guthwhitelistsystem/sh_config.lua`.
