@@ -47,8 +47,9 @@ guthwhitelistsystem.setPanel( guthwhitelistsystem.getLan( "Jobs" ), "icon16/brie
 
             if line:GetValue( 2 ) == guthwhitelistsystem.getLan( "No !" ) then
                 local add = m:AddOption( guthwhitelistsystem.getLan( "ActivateWhitelist" ), function()
-                    local id = tonumber( string.match( line:GetValue( 1 ), "(%d+)" ) )
-                    --print( "ID:" .. tostring( id ), line:GetValue( 1 ) )
+                    local id = string.match( line:GetValue( 1 ), "(%(%d+%))$" )
+                    if not id then return end
+                    id = tonumber( string.match( id, "(%d+)" ) )
                     if not id then return end
                     if not ply:WLIsAdmin() then
                         guthwhitelistsystem.panelNotif( pnlJ, "icon16/shield_delete.png", guthwhitelistsystem.getLan( "PanelNotAdmin" ), 3, Color( 214, 45, 45 ) )
@@ -71,8 +72,10 @@ guthwhitelistsystem.setPanel( guthwhitelistsystem.getLan( "Jobs" ), "icon16/brie
                 add:SetIcon( "icon16/accept.png" )
             else
                 local remove = m:AddOption( guthwhitelistsystem.getLan( "DesactivateWhitelist" ), function()
-                    local id = tonumber( string.match( line:GetValue( 1 ), "(%d+)" ) )
-                    --print( "ID:" .. tostring( id ), line:GetValue( 1 ) )
+                    local id = string.match( line:GetValue( 1 ), "(%(%d+%))$" )
+                    if not id then return end
+                    id = tonumber( string.match( id, "(%d+)" ) )
+
                     if not id then return end
                     if not ply:WLIsAdmin() then
                         guthwhitelistsystem.panelNotif( pnlJ, "icon16/shield_delete.png", guthwhitelistsystem.getLan( "PanelNotAdmin" ), 3, Color( 214, 45, 45 ) )
@@ -97,8 +100,10 @@ guthwhitelistsystem.setPanel( guthwhitelistsystem.getLan( "Jobs" ), "icon16/brie
 
             if line:GetValue( 2 ) == guthwhitelistsystem.getLan( "Yes !" ) and line:GetValue( 3 ) == guthwhitelistsystem.getLan( "No !" ) then
                 local add = m:AddOption( "Activate VIP", function()
-                    local id = tonumber( string.match( line:GetValue( 1 ), "(%d+)" ) )
-                    --print( "ID:" .. tostring( id ), line:GetValue( 1 ) )
+                    local id = string.match( line:GetValue( 1 ), "(%(%d+%))$" )
+                    if not id then return end
+                    id = tonumber( string.match( id, "(%d+)" ) )
+
                     if not id then return end
                     if not ply:WLIsAdmin() then
                         guthwhitelistsystem.panelNotif( pnlJ, "icon16/shield_delete.png", guthwhitelistsystem.getLan( "PanelNotAdmin" ), 3, Color( 214, 45, 45 ) )
@@ -121,8 +126,10 @@ guthwhitelistsystem.setPanel( guthwhitelistsystem.getLan( "Jobs" ), "icon16/brie
                 add:SetIcon( "icon16/accept.png" )
             elseif line:GetValue( 2 ) == guthwhitelistsystem.getLan( "Yes !" ) then
                 local remove = m:AddOption( guthwhitelistsystem.getLan( "DesactivateVIP" ), function()
-                    local id = tonumber( string.match( line:GetValue( 1 ), "(%d+)" ) )
-                    --print( "ID:" .. tostring( id ), line:GetValue( 1 ) )
+                    local id = string.match( line:GetValue( 1 ), "(%(%d+%))$" )
+                    if not id then return end
+                    id = tonumber( string.match( id, "(%d+)" ) )
+
                     if not id then return end
                     if not ply:WLIsAdmin() then
                         guthwhitelistsystem.panelNotif( pnlJ, "icon16/shield_delete.png", guthwhitelistsystem.getLan( "PanelNotAdmin" ), 3, Color( 214, 45, 45 ) )

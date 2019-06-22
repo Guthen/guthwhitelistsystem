@@ -1,6 +1,6 @@
 guthwhitelistsystem = guthwhitelistsystem or {}
 guthwhitelistsystem.Author  = "Guthen"
-guthwhitelistsystem.Version = "1.2.0"
+guthwhitelistsystem.Version = "1.2.1"
 guthwhitelistsystem.Link    = "https://github.com/Guthen/guthwhitelistsystem"
 guthwhitelistsystem.Discord = "https://discord.gg/eKgkpCf"
 

@@ -91,8 +91,10 @@ guthwhitelistsystem.setPanel( guthwhitelistsystem.getLan( "Players" ), "icon16/u
             local m = DermaMenu( pnlP )
 
             local remove = m:AddOption( guthwhitelistsystem.getLan( "RemoveWhitelist" ) , function()
-                local id = tonumber( string.match( line:GetValue( 1 ), "(%d+)" ) )
-                --print( "ID:" .. tostring( id ), line:GetValue( 1 ) )
+                local id = string.match( line:GetValue( 1 ), "(%(%d+%))$" )
+                if not id then return end
+                id = tonumber( string.match( id, "(%d+)" ) )
+
                 if not id then return end
                 if not ply:WLIsAdmin() then
                     guthwhitelistsystem.panelNotif( pnlP, "icon16/shield_delete.png", guthwhitelistsystem.getLan( "PanelNotAdmin" ) , 3, Color( 214, 45, 45 ) )
