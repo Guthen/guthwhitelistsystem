@@ -12,7 +12,7 @@ You just need to install it in your addons folder and to configure it in `lua/gu
 Type in your console : `guthwhitelistsystem_panel`
 (I recommand to you, to bind it to a key)
 
-## Do there are functions for developpers ?
+## Are there any functions dedicated to developers ?
 
 Yes there are.
 
