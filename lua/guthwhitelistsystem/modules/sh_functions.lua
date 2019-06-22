@@ -8,7 +8,7 @@ local Player = FindMetaTable( "Player" )
 function Player:WLSetJobWhitelist( job, bool, by )
     if not job or not isnumber( job ) then return error( "#1 argument must be valid and be a number !", 2 ) end
     if job == GAMEMODE.DefaultTeam then return end -- can't whitelist the DefaultTeam
-    if not guthwhitelistsystem.wl[self:SteamID()] then -- create player table
+    if not guthwhitelistsystem.wl[self:SteamID()] then -- create player table if not existing
         guthwhitelistsystem.wl[self:SteamID()] = {}
     end
     if guthwhitelistsystem.wl[self:SteamID()][job] and bool == true then return end -- don't make modification (time & date) if you are already whitelist

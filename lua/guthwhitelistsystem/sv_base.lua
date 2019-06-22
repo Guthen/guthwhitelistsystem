@@ -37,6 +37,8 @@ function guthwhitelistsystem.load()
     loadFolder( "panels" )
     loadFolder( "languages" )
 
+    util.AddNetworkString( "guthwhitelistsystem:Chat" )
+
     print( "---------> [loaded] <--------" )
 end
 guthwhitelistsystem.load()
@@ -46,6 +48,15 @@ guthwhitelistsystem.load()
 function guthwhitelistsystem.print( msg )
     if not msg or not isstring( msg ) then return end
     print( ("[guthwhitelistsystem] - %s"):format( msg )  )
+end
+
+function guthwhitelistsystem.chat( ply, msg )
+    if not ply or not ply:IsPlayer() then return end
+    if not msg or not isstring( msg ) then return guthwhitelistsystem.print( "'guthwhitelistsystem.chat' should have a string variable." ) end
+
+    net.Start( "guthwhitelistsystem:Chat" )
+        net.WriteString( msg )
+    net.Send( ply )
 end
 
 function guthwhitelistsystem.getLan( id )

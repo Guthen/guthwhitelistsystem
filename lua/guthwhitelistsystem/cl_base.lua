@@ -23,7 +23,7 @@ end
 
 function guthwhitelistsystem.load()
     print( "\n--> [guthwhitelistsystem] <--" )
-    
+
     include( "sh_config.lua" )
 
     loadFolder( "modules" )
@@ -62,12 +62,19 @@ net.Receive( "guthwhitelistsystem:SendData", function()
     local wl = net.ReadTable()
     local jobs = net.ReadTable()
 
+    local i = 0
     if wl and istable( wl ) then
         guthwhitelistsystem.wl = wl
+        i = i + 1
     end
     if jobs and istable( jobs ) then
         guthwhitelistsystem.wlJob = jobs
+        i = i + 1
     end
 
-    guthwhitelistsystem.print( "Receive some data !" )
+    guthwhitelistsystem.print( ("Receive some data ! (%d)"):format( i ) )
+end )
+
+net.Receive( "guthwhitelistsystem:Chat", function()
+    guthwhitelistsystem.chat( net.ReadString() )
 end )
