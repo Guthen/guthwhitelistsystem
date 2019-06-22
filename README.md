@@ -25,7 +25,7 @@ Yes there are.
 --  > NOTE: Set the whitelist on CLIENT and SERVER because the changes are not networked
 Player:WLSetJobWhitelist( jobId, bool, by )
 
---  > : Return the whitelist information of a job, 'false' if the player is not whitelisted and a table if it is 
+--  > : Return the whitelist information of a job, 'false' if the player is not whitelisted and a table if it is
 --  > #jobId (number): the index of the job
 Player:WLGetJobWhitelist( jobId )
 
@@ -51,6 +51,16 @@ guthwhitelistsystem:WLSetJobWhitelist( jobId, bool, vip )
 --  > : Return the whitelist information of a job, a table is returned
 --  > #jobId (number): the index of the job
 guthwhitelistsystem:WLGetJobWhitelist( jobId )
+
+--  > : Add a chat text to the specified player (if SERVER) or LocalPlayer (if CLIENT)
+--  > #ply (Player): the specified player
+--  > #msg (string): the message to display
+guthwhitelistsystem.chat( ply, msg ) -- SERVER
+guthwhitelistsystem.chat( msg ) -- CLIENT
+
+--  > : Get current language text
+--  > #id (string): the id of the text to return
+guthwhitelistsystem.getLan( id )
 ```
 
 ## How can I contact you ?
