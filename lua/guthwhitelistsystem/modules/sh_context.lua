@@ -60,7 +60,6 @@ properties.Add( "guthwhitelistsystem_remove", -- adding whitelist
     {
         MenuLabel = " ",
         Order = math.huge,
-        PrependSpacer = false,
 
         Filter = function( self, ent, ply )
             if not DarkRP then return false end

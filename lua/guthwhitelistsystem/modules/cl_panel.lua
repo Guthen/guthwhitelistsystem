@@ -69,6 +69,15 @@ function guthwhitelistsystem.panel()
 end
 concommand.Add( "guthwhitelistsystem_panel", guthwhitelistsystem.panel )
 
+hook.Add( "OnPlayerChat", "guthwhitelistsystem:Hook", function( ply, txt )
+    if not ply == LocalPlayer() then return end
+
+    if string.StartWith( txt, guthwhitelistsystem.ChatCommand ) then
+        guthwhitelistsystem.panel()
+        return ""
+    end
+end )
+
 --  > #pnl: panel, the panel object
 --  > #icon: string, the icon image
 --  > #msg: string, the displayed message

@@ -24,4 +24,7 @@ guthwhitelistsystem.AdminRanks        =
 --  < Language: choice between 'en' and 'fr'
 guthwhitelistsystem.Language          =  "fr"
 
+--  < The chat command to enter to open the whitelist panel
+guthwhitelistsystem.ChatCommand       =  "!whitelist"
+
 print( "\tLoaded : sh_config.lua." )
