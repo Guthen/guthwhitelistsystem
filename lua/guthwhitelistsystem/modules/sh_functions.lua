@@ -3,6 +3,8 @@ guthwhitelistsystem.wlJob = guthwhitelistsystem.wlJob or {}
 
 local Player = FindMetaTable( "Player" )
 
+if SERVER and guthlogsystem then guthlogsystem.addCategory( "guthwhitelistsystem", Color( 142, 68, 173 ) ) end
+
 --  > Make some players meta
 
 function Player:WLSetJobWhitelist( job, bool, by )
@@ -31,6 +33,12 @@ function Player:WLSetJobWhitelist( job, bool, by )
         for _, v in pairs( player.GetAll() ) do
             if not v:WLIsAdmin() then continue end
             v:WLSendData()
+        end
+        --  >   guthlogsystem
+        if guthlogsystem then
+            local whitelist = bool and "whitelisted" or "unwhitelisted"
+            local msg = by and ("by ?%s?"):format( by ) or ""
+            guthlogsystem.addLog( "guthwhitelistsystem", ("*%s* (%s) has been %s to &%s& %s"):format( self:GetName(), self:SteamID(), whitelist, team.GetName( job ), msg ) )
         end
     end
 
@@ -81,6 +89,12 @@ function guthwhitelistsystem:WLSetJobWhitelist( job, bool, vip )
         for _, v in pairs( player.GetAll() ) do
             if not v:WLIsAdmin() then continue end
             v:WLSendData()
+        end
+        --  >   guthlogsystem
+        if guthlogsystem then
+            local whitelist = bool and "whitelisted" or "unwhitelisted"
+            local msg = vip and "to VIP only" or ""
+            guthlogsystem.addLog( "guthwhitelistsystem", ("&%s& has been %s %s"):format( team.GetName( job ), whitelist, msg ) )
         end
     end
 
