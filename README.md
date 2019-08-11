@@ -25,12 +25,20 @@ Yes there are.
 --  > NOTE: Set the whitelist on CLIENT and SERVER because the changes are not networked
 Player:WLSetJobWhitelist( jobId, bool, by )
 
+--  > : Add/Remove the whitelist all to a specified player
+--  > #bool (boolean): 'true' to add the whitelist all and 'false' to remove it
+--  > #by (optional) (player): Player who add the whitelist all
+Player:WLSetWhitelistAll( bool, by )
+
 --  > : Return the whitelist information of a job, 'false' if the player is not whitelisted and a table if it is
 --  > #jobId (number): the index of the job
 Player:WLGetJobWhitelist( jobId )
 
 --  > : Return all the whitelisted jobs of the player (table)
 Player:WLGetWhitelists()
+
+--  > : Return if the player is whitelist all
+Player:WLIsWhitelistAll()
 
 --  > : Return if the player is admin (defined by the 'sh_config.lua')
 Player:WLIsAdmin()
