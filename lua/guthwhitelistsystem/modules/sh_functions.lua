@@ -7,6 +7,41 @@ if SERVER and guthlogsystem then guthlogsystem.addCategory( "guthwhitelistsystem
 
 --  > Make some players meta
 
+function Player:WLSetWhitelistAll( bool, by )
+    if not guthwhitelistsystem.wl[self:SteamID()] then -- create player table if not existing
+        guthwhitelistsystem.wl[self:SteamID()] = {}
+    end
+    if guthwhitelistsystem.wl[self:SteamID()].whitelistAll and bool == true then return end -- don't make modification if you are already whitelist
+
+    by = by and by:IsPlayer() and by:GetName() or not by == nil and by or "Unknow"
+
+    if bool == true then
+        guthwhitelistsystem.wl[self:SteamID()].whitelistAll =
+            {
+                date = os.date( "%d/%m/%Y", os.time() ),
+                time = os.date( "%H:%M:%S", os.time() ),
+                by = by,
+            }
+    elseif bool == false then
+        guthwhitelistsystem.wl[self:SteamID()].whitelistAll = nil
+    end
+
+    if SERVER then
+        for _, v in pairs( player.GetAll() ) do
+            if not v:WLIsAdmin() then continue end
+            v:WLSendData()
+        end
+        --  >   guthlogsystem
+        if guthlogsystem then
+            local whitelist = bool and "whitelisted all" or "unwhitelisted all"
+            local msg = by and ("by ?%s?"):format( by ) or ""
+            guthlogsystem.addLog( "guthwhitelistsystem", ("*%s* (%s) has been %s %s"):format( self:GetName(), self:SteamID(), whitelist, msg ) )
+        end
+    end
+
+    guthwhitelistsystem.print( ("Set job whitelist all to %s to %s by %s !"):format( self:GetName(), tostring( bool ), by ) )
+end
+
 function Player:WLSetJobWhitelist( job, bool, by )
     if not job or not isnumber( job ) then return error( "#1 argument must be valid and be a number !", 2 ) end
     if job == GAMEMODE.DefaultTeam then return end -- can't whitelist the DefaultTeam
@@ -46,12 +81,12 @@ function Player:WLSetJobWhitelist( job, bool, by )
 end
 
 function Player:WLGetJobWhitelist( job )
-    local wl = guthwhitelistsystem.wl[self:SteamID()]
+    local wl = guthwhitelistsystem.wl[self:SteamID() == "NULL" and "BOT" or self:SteamID()]
     return wl and wl[job] or false
 end
 
 function Player:WLGetWhitelists()
-    return guthwhitelistsystem.wl[self:SteamID()] or {}
+    return guthwhitelistsystem.wl[self:SteamID() == "NULL" and "BOT" or self:SteamID()] or {}
 end
 
 function Player:WLIsAdmin()
@@ -60,6 +95,11 @@ end
 
 function Player:WLIsVIP()
     return guthwhitelistsystem.VIPRanks[self:GetUserGroup()]
+end
+
+function Player:WLIsWhitelistAll()
+    local steamid = self:IsBot() and "BOT" or self:SteamID()
+    return guthwhitelistsystem.wl[steamid] and guthwhitelistsystem.wl[steamid].whitelistAll
 end
 
 --  > Make some functions

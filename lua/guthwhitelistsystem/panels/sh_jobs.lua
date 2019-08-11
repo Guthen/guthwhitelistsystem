@@ -5,7 +5,7 @@ if SERVER then
         if not ply or not ply:IsValid() then return end
         if not ply:WLIsAdmin() then return end
 
-        local job = net.ReadUInt( 7 )
+        local job = net.ReadUInt( guthwhitelistsystem.JobIDBit )
         local bool = net.ReadBool()
         local vip = net.ReadBool()
         guthwhitelistsystem:WLSetJobWhitelist( job, bool or false, vip or false )
@@ -57,7 +57,7 @@ guthwhitelistsystem.setPanel( guthwhitelistsystem.getLan( "Jobs" ), "icon16/brie
                     end
 
                     net.Start( "guthwhitelistsystem:SetJobWhitelist" )
-                        net.WriteUInt( id, 7 )
+                        net.WriteUInt( id, guthwhitelistsystem.JobIDBit )
                         net.WriteBool( true )
                         net.WriteBool( false )
                     net.SendToServer()
@@ -83,7 +83,7 @@ guthwhitelistsystem.setPanel( guthwhitelistsystem.getLan( "Jobs" ), "icon16/brie
                     end
 
                     net.Start( "guthwhitelistsystem:SetJobWhitelist" )
-                        net.WriteUInt( id, 7 )
+                        net.WriteUInt( id, guthwhitelistsystem.JobIDBit )
                         net.WriteBool( false )
                         net.WriteBool( false )
                     net.SendToServer()
@@ -111,7 +111,7 @@ guthwhitelistsystem.setPanel( guthwhitelistsystem.getLan( "Jobs" ), "icon16/brie
                     end
 
                     net.Start( "guthwhitelistsystem:SetJobWhitelist" )
-                        net.WriteUInt( id, 7 )
+                        net.WriteUInt( id, guthwhitelistsystem.JobIDBit )
                         net.WriteBool( true )
                         net.WriteBool( true )
                     net.SendToServer()
@@ -137,7 +137,7 @@ guthwhitelistsystem.setPanel( guthwhitelistsystem.getLan( "Jobs" ), "icon16/brie
                     end
 
                     net.Start( "guthwhitelistsystem:SetJobWhitelist" )
-                        net.WriteUInt( id, 7 )
+                        net.WriteUInt( id, guthwhitelistsystem.JobIDBit )
                         net.WriteBool( true )
                         net.WriteBool( false )
                     net.SendToServer()

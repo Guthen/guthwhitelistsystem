@@ -7,6 +7,11 @@ guthwhitelistsystem = guthwhitelistsystem or {}
 --  < In seconds, how many seconds it takes to make a save of whitelists
 guthwhitelistsystem.TimerSaveTime   =   120
 
+--  < In bits, (network optimisation), how much job ID is maximum in bits (don't touch it if
+--  < you don't need/know). For example, 7 bits accept 127 in maximum and 0 in minimum. If you
+--  < have more than 127 jobs, up this number.
+guthwhitelistsystem.JobIDBit       =   7
+
 --  < All the VIP ranks, they have access to the VIP whitelist
 guthwhitelistsystem.VIPRanks        =
                     {
