@@ -27,7 +27,7 @@ guthwhitelistsystem.AdminRanks        =
                     }
 
 --  < Language: choice between 'en' and 'fr'
-guthwhitelistsystem.Language          =  "fr"
+guthwhitelistsystem.Language          =  "en"
 
 --  < The chat command to enter to open the whitelist panel
 guthwhitelistsystem.ChatCommand       =  "!whitelist"
