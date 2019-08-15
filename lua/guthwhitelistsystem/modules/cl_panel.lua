@@ -70,7 +70,7 @@ end
 concommand.Add( "guthwhitelistsystem_panel", guthwhitelistsystem.panel )
 
 hook.Add( "OnPlayerChat", "guthwhitelistsystem:Hook", function( ply, txt )
-    if not ply == LocalPlayer() then return end
+    if not ( ply == LocalPlayer() ) then return end
 
     if string.StartWith( txt, guthwhitelistsystem.ChatCommand ) then
         guthwhitelistsystem.panel()
