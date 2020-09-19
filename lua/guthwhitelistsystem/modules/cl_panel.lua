@@ -18,7 +18,7 @@ end
 
 local w, h = 700, 500
 function guthwhitelistsystem.panel()
-    if not LocalPlayer():IsAdmin() or not LocalPlayer():IsSuperAdmin() then
+    if not LocalPlayer():WLIsAdmin() then
         guthwhitelistsystem.chat( guthwhitelistsystem.getLan( "ChatNotAdmin" ) )
         return
     end
