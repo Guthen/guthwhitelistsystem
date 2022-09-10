@@ -57,6 +57,12 @@ function guthwhitelistsystem.getLan( id )
 end
 
 --  > Receive some data
+local function retrieve_data() 
+    net.Start( "guthwhitelistsystem:SendData" )
+    net.SendToServer()
+end
+concommand.Add( "guthwhitelistsystem_retrieve_data", retrieve_data )
+hook.Add( "InitPostEntity", "guthwhitelistsystem:SendData", retrieve_data )
 
 net.Receive( "guthwhitelistsystem:SendData", function()
     local wl = net.ReadTable()
@@ -72,7 +78,7 @@ net.Receive( "guthwhitelistsystem:SendData", function()
         i = i + 1
     end
 
-    guthwhitelistsystem.print( ("Receive some data ! (%d)"):format( i ) )
+    guthwhitelistsystem.print( ( "Receive some data ! (%d)"):format( i ) )
 end )
 
 net.Receive( "guthwhitelistsystem:Chat", function()

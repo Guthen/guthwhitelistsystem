@@ -12,6 +12,12 @@ function Player:WLSendData()
     net.Send( self )
 end
 
+net.Receive( "guthwhitelistsystem:SendData", function( len, ply )
+    if not ply:WLIsAdmin() then return end
+
+    ply:WLSendData()
+end )
+
 --  > --------------- <  --
 
 local path = "guthwhitelistsystem"
