@@ -25,11 +25,3 @@ end )
 hook.Add( "Initialize", "guthwhitelistsystem:Hook", function()
     guthwhitelistsystem:WLLoad()
 end )
-
-hook.Add( "ShutDown", "guthwhitelistsystem:Hook", function()
-    guthwhitelistsystem:WLSave()
-end )
-
-timer.Create( "guthwhitelistsystem:Save", guthwhitelistsystem.TimerSaveTime or 120, 0, function()
-    guthwhitelistsystem:WLSave()
-end )

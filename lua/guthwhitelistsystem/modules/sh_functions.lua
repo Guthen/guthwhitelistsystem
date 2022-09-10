@@ -3,7 +3,9 @@ guthwhitelistsystem.wlJob = guthwhitelistsystem.wlJob or {}
 
 local Player = FindMetaTable( "Player" )
 
-if SERVER and guthlogsystem then guthlogsystem.addCategory( "guthwhitelistsystem", Color( 142, 68, 173 ) ) end
+if SERVER and guthlogsystem then 
+    guthlogsystem.addCategory( "guthwhitelistsystem", Color( 142, 68, 173 ) ) 
+end
 
 --  > Make some players meta
 
@@ -27,10 +29,15 @@ function Player:WLSetWhitelistAll( bool, by )
     end
 
     if SERVER then
+        --  >   saving
+        guthwhitelistsystem:WLSave()
+
+        --  >   networking
         for _, v in pairs( player.GetAll() ) do
             if not v:WLIsAdmin() then continue end
             v:WLSendData()
         end
+
         --  >   guthlogsystem
         if guthlogsystem then
             local whitelist = bool and "whitelisted all" or "unwhitelisted all"
@@ -65,10 +72,15 @@ function Player:WLSetJobWhitelist( job, bool, by )
     end
 
     if SERVER then
+        --  >   saving
+        guthwhitelistsystem:WLSave()
+
+        --  >   networking
         for _, v in pairs( player.GetAll() ) do
             if not v:WLIsAdmin() then continue end
             v:WLSendData()
         end
+
         --  >   guthlogsystem
         if guthlogsystem then
             local whitelist = bool and "whitelisted" or "unwhitelisted"
@@ -126,10 +138,15 @@ function guthwhitelistsystem:WLSetJobWhitelist( job, bool, vip )
     end
 
     if SERVER then
+        --  >   saving
+        guthwhitelistsystem:WLSave()
+
+        --  >   networking
         for _, v in pairs( player.GetAll() ) do
             if not v:WLIsAdmin() then continue end
             v:WLSendData()
         end
+
         --  >   guthlogsystem
         if guthlogsystem then
             local whitelist = bool and "whitelisted" or "unwhitelisted"
