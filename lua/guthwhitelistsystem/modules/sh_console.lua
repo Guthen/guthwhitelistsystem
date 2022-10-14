@@ -6,7 +6,7 @@ concommand.Add( "guthwhitelistsystem_info", function()
         "[guthwhitelistsystem] - 'guthwhitelistsystem' is made by %s.\nThe installated version is %s.\nDownload the addon here : %s.\nJoin freely my Discord : %s.",
         guthwhitelistsystem.Author, guthwhitelistsystem.Version, guthwhitelistsystem.Link, guthwhitelistsystem.Discord)
 
-    if ply:IsValid() then
+    if IsValid( ply ) then
         ply:PrintMessage( HUD_PRINTCONSOLE, msg )
     else
         print( msg )
