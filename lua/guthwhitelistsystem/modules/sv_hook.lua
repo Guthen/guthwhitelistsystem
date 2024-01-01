@@ -2,8 +2,9 @@ util.AddNetworkString( "guthwhitelistsystem:SendData" )
 
 --  > Hook(s)
 
-hook.Add( "playerCanChangeTeam", "guthwhitelistsystem:Hook", function( ply, job )
-    if job == GAMEMODE.DefaultTeam then return true end
+hook.Add( "playerCanChangeTeam", "guthwhitelistsystem:Hook", function( ply, job, force )
+    if force then return end  --  don't prevent forced team changes
+    if job == GAMEMODE.DefaultTeam then return end  --  don't whitelist the default team
 
     local wl = guthwhitelistsystem:WLGetJobWhitelist( job )
     if wl.active == true then
